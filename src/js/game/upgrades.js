@@ -1,7 +1,7 @@
 import { findNiceIntegerValue } from "../core/utils";
 import { ShapeDefinition } from "./shape_definition";
+import { enumHubGoalRewards , finalGameShape } from "./tutorial_goals";
 
-export const finalGameShape = "RuCw--Cw:----Ru--";
 export const blueprintShape = "CbCbCbRb:CwCwCwCw";
 
 export const UPGRADES = {
@@ -86,6 +86,7 @@ export const UPGRADES = {
             {
                 required: [{ shape: "WrRgWrRg:CwCrCwCr:SgSgSgSg", amount: 40000 }],
                 improvement: 2,
+                reward: enumHubGoalRewards.reward_rotater_fl,
             },
             {
                 required: [{ shape: finalGameShape, amount: 150000 }],

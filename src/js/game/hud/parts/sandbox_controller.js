@@ -108,6 +108,22 @@ export class HUDSandboxController extends BaseHUDPart {
             "Upgrade '" + id + "' is now at tier " + (this.root.hubGoals.upgradeLevels[id] + 1),
             enumNotificationType.upgrade
         );
+
+        // Compute reward
+        const tier = this.root.hubGoals.upgradeLevels[id];
+
+        // Add reward if this tier exists and has rewards
+        if(handle.tiers[tier] && handle.tiers[tier].reward){
+            const reward = handle.tiers[tier].reward;
+            this.root.hubGoals.gainedRewards[reward] = (this.root.hubGoals.gainedRewards[reward] || 0) + 1;
+        }
+        // Check if went down a level and remove reward if needed
+        if(amount < 0){
+            if(handle.tiers[tier+1] && handle.tiers[tier+1].reward){
+                this.root.hubGoals.gainedRewards[handle.tiers[tier+1].reward] = 0;
+                console.log("removed a reward")
+            }
+        }
     }
 
     modifyLevel(amount) {

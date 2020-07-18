@@ -7,7 +7,6 @@ import { enumItemProcessorTypes } from "./components/item_processor";
 import { GameRoot, enumLayer } from "./root";
 import { enumSubShape, ShapeDefinition } from "./shape_definition";
 import { enumHubGoalRewards, tutorialGoals } from "./tutorial_goals";
-import { HUDUnlockNotification } from "./hud/parts/unlock_notification";
 import { UPGRADES, blueprintShape } from "./upgrades";
 
 export class HubGoals extends BasicSerializableObject {
@@ -35,7 +34,7 @@ export class HubGoals extends BasicSerializableObject {
             return errorCode;
         }
 
-        // Compute gained rewards
+        // Compute gained rewards (upgrade rewards below)
         for (let i = 0; i < this.level - 1; ++i) {
             if (i < tutorialGoals.length) {
                 const reward = tutorialGoals[i].reward;
@@ -43,13 +42,18 @@ export class HubGoals extends BasicSerializableObject {
             }
         }
 
-        // Compute upgrade improvements
+        // Compute upgrade improvements and upgrade rewards
         for (const upgradeId in UPGRADES) {
             const upgradeHandle = UPGRADES[upgradeId];
             const level = this.upgradeLevels[upgradeId] || 0;
             let totalImprovement = upgradeHandle.baseValue || 1;
             for (let i = 0; i < level; ++i) {
                 totalImprovement += upgradeHandle.tiers[i].improvement;
+
+                if(upgradeHandle.tiers[i].reward){
+                    const reward = upgradeHandle.tiers[i].reward;
+                    this.gainedRewards[reward] = (this.gainedRewards[reward] || 0) + 1;
+                }
             }
             this.upgradeImprovements[upgradeId] = totalImprovement;
         }

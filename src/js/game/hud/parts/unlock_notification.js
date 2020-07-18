@@ -9,6 +9,7 @@ import { BaseHUDPart } from "../base_hud_part";
 import { DynamicDomAttach } from "../dynamic_dom_attach";
 import { enumHubGoalRewardsToContentUnlocked } from "../../tutorial_goals_mappings";
 import { InputReceiver } from "../../../core/input_receiver";
+import { UPGRADES } from "../../upgrades";
 
 export class HUDUnlockNotification extends BaseHUDPart {
     initialize() {
@@ -109,29 +110,18 @@ export class HUDUnlockNotification extends BaseHUDPart {
         this.root.app.inputMgr.makeSureAttachedAndOnTop(this.inputReciever);
         this.elemTitle.innerText = T.ingame.upgradeCompleteNotification.upgradeTitle;
 
-        // If it's not at the max level:
-        if(this.root.hubGoals.canUnlockUpgrade(upgradeId)){
+        const completedLevel = this.root.hubGoals.getUpgradeLevel(upgradeId);
+        
+        //if tier doesn't exist
+        if(!UPGRADES[upgradeId].tiers[completedLevel]){
             return;
         }
-        if(!T.upgradeRewards[upgradeId]){
-            return;
-        }
-
-        var reward;
-        for(let goalReward in enumHubGoalRewards){
-            if(T.upgradeRewards[upgradeId][goalReward]){
-                reward = goalReward;
-                break;
-            }
-        }
-
-        if(!reward){
+        //if reward doesn't exist
+        if(!UPGRADES[upgradeId].tiers[completedLevel].reward){
             return;
         }
 
-        //Functional for now -> Needs some rework; Only will register the unlock here if you actually click "upgrade" in the same session
-        this.root.hubGoals.gainedRewards[reward] = (this.root.hubGoals.gainedRewards[reward] || 0) + 1;
-
+        const reward = UPGRADES[upgradeId].tiers[completedLevel].reward;
         const rewardName = T.upgradeRewards[upgradeId][reward].title;
 
         let html = `

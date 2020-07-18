@@ -1,5 +1,6 @@
 import { ShapeDefinition } from "./shape_definition";
-import { finalGameShape } from "./upgrades";
+
+export const finalGameShape = "RuCw--Cw:----Ru--";
 
 /**
  * Don't forget to also update tutorial_goals_mappings.js as well as the translations!
