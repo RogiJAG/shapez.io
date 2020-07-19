@@ -124,6 +124,10 @@ export class HUDUnlockNotification extends BaseHUDPart {
         const reward = UPGRADES[upgradeId].tiers[completedLevel].reward;
         const rewardName = T.upgradeRewards[upgradeId][reward].title;
 
+        if(this.root.hubGoals.gainedRewards[reward] > 0){
+            return;
+        }
+
         let html = `
         <div class="rewardName">
             ${T.ingame.upgradeCompleteNotification.unlockText}
