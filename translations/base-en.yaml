@@ -717,9 +717,9 @@ settings:
                 Change the language. All translations are user-contributed and might be incomplete!
 
         enableColorBlindHelper:
-            title: Color Blind Mode
+            title: Show Color Tooltips
             description: >-
-                Enables various tools which allow you to play the game if you are color blind.
+                Enables display of color tooltips for color-blind accessibility.
 
         fullscreen:
             title: Fullscreen
