@@ -35,7 +35,7 @@ export class HUDUnlockNotification extends BaseHUDPart {
         const dialog = makeDiv(this.element, null, ["dialog"]);
 
         this.elemTitle = makeDiv(dialog, null, ["title"]);
-        this.elemSubTitle = makeDiv(dialog, null, ["subTitle"], T.ingame.levelCompleteNotification.completed);
+        this.elemSubTitle = makeDiv(dialog, null, ["subTitle"]);
 
         this.elemContents = makeDiv(dialog, null, ["contents"]);
 
@@ -59,6 +59,8 @@ export class HUDUnlockNotification extends BaseHUDPart {
         );
 
         const rewardName = T.storyRewards[reward].title;
+
+        this.elemSubTitle.innerHTML = T.ingame.levelCompleteNotification.completed;
 
         let html = `
         <div class="rewardName">
@@ -127,6 +129,8 @@ export class HUDUnlockNotification extends BaseHUDPart {
         if(this.root.hubGoals.gainedRewards[reward] > 0){
             return;
         }
+
+        this.elemSubTitle.innerHTML = T.ingame.upgradeCompleteNotification.completed;
 
         let html = `
         <div class="rewardName">
