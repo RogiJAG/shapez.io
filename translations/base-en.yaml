@@ -700,6 +700,16 @@ settings:
                 fast: Fast
                 super_fast: Super Fast
                 extremely_fast: Extremely Fast
+        
+        colorBlindMode:
+            title: Color Blind Mode
+            description: >-
+                Changes the color pallet used to render colors in-game.
+            modes:
+                normal: Normal
+                protanopia: Protanopia
+                deuteranopia: Deuteranopia
+                tritanopia: Tritanopia
 
         language:
             title: Language

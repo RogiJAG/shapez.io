@@ -277,17 +277,23 @@ export class Colors {
     }
 
     getColorEnumInUse(){
-        // TODO:
-        // Read setting and choose which enum to return
-        if (this.root.app.settings.getAllSettings().enableColorBlindHelper === true) {
-            return enumColorsToHexCodeProtanopia;
-        } else {
-            return enumColorsToHexCodeNormal;
-        }
-    }
+        const colorBlindMode = this.root.app.settings.getAllSettings().colorBlindMode;
 
-    setColorEnumInUse(){
-        // TODO:
-        // Cycle setting allowing to choose color pallettes
+        switch(colorBlindMode){
+            case "normal" : {
+                return enumColorsToHexCodeNormal;
+            }
+            case "protanopia" : {
+                return enumColorsToHexCodeProtanopia;
+            }
+            case "deuteranopia" : {
+                return enumColorsToHexCodeDeuteranopia;
+            }
+            case "tritanopia" : {
+                return enumColorsToHexCodeTritanopia;
+            }
+            default: 
+                assertAlways(false, "Unknown color enum: " + colorBlindMode);
+        }
     }
 }
