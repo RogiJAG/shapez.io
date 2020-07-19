@@ -322,6 +322,16 @@ export class HubGoals extends BasicSerializableObject {
 
         this.root.app.gameAnalytics.handleUpgradeUnlocked(upgradeId, currentLevel);
 
+
+        // Compute rewards
+        const tier = this.root.hubGoals.upgradeLevels[upgradeId];
+
+        // Add reward if this tier exists and has rewards
+        if(handle.tiers[tier] && handle.tiers[tier].reward){
+            const reward = handle.tiers[tier].reward;
+            this.root.hubGoals.gainedRewards[reward] = (this.root.hubGoals.gainedRewards[reward] || 0) + 1;
+        }
+
         return true;
     }
 
